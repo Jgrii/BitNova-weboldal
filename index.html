@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova</title>
+    <link rel="icon" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+
+            html.dark-mode,
+        html.dark-mode body {
+            background-color: #1a1a1a !important;
+            background: #1a1a1a !important;
+            color: #e0e0e0 !important;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a !important;
+            background: #1a1a1a !important;
+            color: #ffffff !important;
+        }
+
+            /* Konténerek, wrapperek */
+        .dark-mode .container,
+        .dark-mode .wrapper,
+        .dark-mode #app,
+        .dark-mode #root,
+        .dark-mode .main-content,
+        .dark-mode .content-wrapper {
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+        }
+
+        /* Fehér háttérű elemek átszínezése */
+        .dark-mode *[style*="background-color: white"],
+        .dark-mode *[style*="background-color: #fff"],
+        .dark-mode *[style*="background-color: #ffffff"],
+        .dark-mode *[style*="background: white"],
+        .dark-mode *[style*="background: #fff"],
+        .dark-mode *[style*="background: #ffffff"] {
+            background-color: #2d2d2d !important;
+        }
+
+        /* SZÖVEGDOBOZOK ÉS ELEMEK */
+        .dark-mode form,
+        .dark-mode article,
+        .dark-mode .card,
+        .dark-mode .box,
+        .dark-mode .panel,
+        .dark-mode .content {
+            background-color: #2d2d2d !important;
+            color: #e0e0e0 !important;
+            border-color: #555 !important;
+        }
+        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .page.active {
+            display: block !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #142b72 0%, #1a3a8a 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 15px rgba(20, 43, 114, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-image {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(224, 202, 100, 0.2);
+            color: #e0ca64;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(153, 122, 225, 0.1) 0%, rgba(224, 202, 100, 0.1) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #142b72;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #997ae1, #e0ca64);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(153, 122, 225, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(153, 122, 225, 0.4);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #997ae1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .feature-card h3 {
+            color: #142b72;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #142b72;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #997ae1;
+            box-shadow: 0 0 0 3px rgba(153, 122, 225, 0.1);
+        }
+
+        .emergency-contact {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .emergency-contact h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .emergency-contact .phone {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .about-content h2 {
+            color: #142b72;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .about-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(224, 202, 100, 0.1), rgba(153, 122, 225, 0.1));
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-item h3 {
+            color: #142b72;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .service-category {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .service-category h3 {
+            color: #142b72;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            border-bottom: 3px solid #997ae1;
+            padding-bottom: 0.5rem;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-list li {
+            color: #666;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .service-list li:before {
+            content: "✓";
+            color: #997ae1;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .modal-icon.success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .modal-icon.error {
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: white;
+        }
+
+        .modal-icon.loading {
+            background: linear-gradient(135deg, #17a2b8, #007bff);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #142b72;
+            margin: 0;
+        }
+
+        .modal-body {
+            padding: 1rem 2rem 2rem;
+            text-align: center;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .modal-details {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .modal-details h4 {
+            color: #142b72;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .modal-details p {
+            margin: 0.3rem 0;
+            color: #555;
+        }
+
+        .modal-footer {
+            padding: 1rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .modal-close-btn {
+            background: linear-gradient(45deg, #997ae1, #e0ca64);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .modal-close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(153, 122, 225, 0.3);
+        }
+
+        .close-x {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-x:hover {
+            color: #333;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #17a2b8;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        /* Footer */
+        footer {
+            background: #142b72;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- CSÚSZKÁS TÉMAVÁLTÓ GOMB -->
+<div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <input type="checkbox" id="themeSwitch" style="display: none;">
+    
+    <label for="themeSwitch" style="
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 10px;
+        background: rgba(255,255,255,0.9);
+        padding: 8px 15px;
+        border-radius: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    ">
+        <span id="themeIcon" style="font-size: 18px;">🌙</span>
+        
+        <div style="
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #ccc;
+            border-radius: 12px;
+            transition: background 0.3s ease;
+        " id="switchTrack">
+            <div style="
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 20px;
+                height: 20px;
+                background: white;
+                border-radius: 50%;
+                transition: transform 0.3s ease;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            " id="switchButton"></div>
+        </div>
+    </label>
+</div>
+    <!-- FŐOLDAL -->
+    <div class="page active" id="home">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="200" height="50" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background rectangle -->
+                        <rect x="0" y="0" width="400" height="100" fill="#142b72" stroke="#e0ca64" stroke-width="4" rx="8"/>
+                        
+                        <!-- TN Letters -->
+                        <g fill="#e0ca64">
+                            <!-- T -->
+                            <rect x="20" y="15" width="40" height="8"/>
+                            <rect x="35" y="15" width="10" height="50"/>
+                        </g>
+                        <g fill="#997ae1">
+                            <!-- N -->
+                            <rect x="75" y="15" width="8" height="50"/>
+                            <rect x="100" y="15" width="8" height="50"/>
+                            <polygon points="83,15 100,45 83,45"/>
+                        </g>
+                        
+                        <!-- TECHNOVA text -->
+                        <text x="140" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">TECHNOVA</text>
+                        <text x="140" y="58" font-family="Arial, sans-serif" font-size="12" fill="#e0ca64" letter-spacing="2px">IT SOLUTIONS</text>
+                        
+                        <!-- Decorative lines -->
+                        <rect x="340" y="15" width="40" height="4" fill="#e0ca64"/>
+                        <rect x="340" y="55" width="40" height="4" fill="#e0ca64"/>
+                    </svg>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="javascript:void(0)" onclick="showPage('home')" class="active">Főoldal</a></li>
+                        <li><a href="javascript:void(0)" onclick="showPage('about')">Rólunk</a></li>
+                        <li><a href="javascript:void(0)" onclick="showPage('services')">Szolgáltatások</a></li>
+                        <li><a href="javascript:void(0)" onclick="showPage('contact')">Kapcsolat</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>TechNova IT Solutions</h1>
+                <p>Megbízható informatikai szolgáltatások kis- és középvállalatok számára. Rendszerüzemeltetés, webfejlesztés és 0-24 órás támogatás fiatal, szakértő csapatunktól.</p>
+                <a href="javascript:void(0)" class="cta-button" onclick="showPage('contact')">Kapcsolatfelvétel</a>
+            </section>
+
+            <section class="features">
+                <article class="feature-card">
+                    <h3>🛠️ Rendszerüzemeltetés</h3>
+                    <p>Teljes körű IT infrastruktúra kiépítés, karbantartás és szerverfelügyelet. Hálózatbiztonság és rendszeroptimalizálás.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>🌐 Webfejlesztés</h3>
+                    <p>Egyedi, AI-támogatott weboldal tervezés és fejlesztés. Személyre szabott megoldások karbantartással és frissítésekkel.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>🚀 0-24 Támogatás</h3>
+                    <p>Folyamatos elérhetőség, gyors reagálás. Helyszíni és távoli támogatás tapasztalt szakembereinktől.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>💡 Fiatal Csapat</h3>
+                    <p>Dinamikus, naprakész tudású szakemberek. Kedvező árak és maximális elkötelezettség minden projekt iránt.</p>
+                </article>
+            </section>
+
+            <div class="emergency-contact">
+                <h3>🆘 SOS Ügyfélszolgálat</h3>
+                <div class="phone">+36 XX XXX XXXX</div>
+                <p>0-24 órás elérhetőség sürgős esetekben</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 TechNova IT Solutions. Minden jog fenntartva.</p>
+        </footer>
+    </div>
+
+    <!-- RÓLUNK OLDAL -->
+    <div class="page" id="about">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="200" height="50" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background rectangle -->
+                        <rect x="0" y="0" width="400" height="100" fill="#142b72" stroke="#e0ca64" stroke-width="4" rx="8"/>
+                        
+                        <!-- TN Letters -->
+                        <g fill="#e0ca64">
+                            <!-- T -->
+                            <rect x="20" y="15" width="40" height="8"/>
+                            <rect x="35" y="15" width="10" height="50"/>
+                        </g>
+                        <g fill="#997ae1">
+                            <!-- N -->
+                            <rect x="75" y="15" width="8" height="50"/>
+                            <rect x="100" y="15" width="8" height="50"/>
+                            <polygon points="83,15 100,45 83,45"/>
+                        </g>
+                        
+                        <!-- TECHNOVA text -->
+                        <text x="140" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">TECHNOVA</text>
+                        <text x="140" y="58" font-family="Arial, sans-serif" font-size="12" fill="#e0ca64" letter-spacing="2px">IT SOLUTIONS</text>
+                        
+                        <!-- Decorative lines -->
+                        <rect x="340" y="15" width="40" height="4" fill="#e0ca64"/>
+                        <rect x="340" y="55" width="40" height="4" fill="#e0ca64"/>
+                    </svg>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')">Főoldal</a></li>
+                        <li><a href="#" onclick="showPage('about')" class="active">Rólunk</a></li>
+                        <li><a href="#" onclick="showPage('services')">Szolgáltatások</a></li>
+                        <li><a href="#" onclick="showPage('contact')">Kapcsolat</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <article class="about-content">
+                <h2>Rólunk</h2>
+                <p>A TechNova egy fiatal, dinamikus informatikai csapat, amely 2024-ben alakult azzal a céllal, hogy megbízható és modern IT megoldásokat nyújtson kis- és középvállalatok, valamint magánszemélyek számára.</p>
+                
+                <p>Csapatunk tapasztalt szakemberekből áll, akik folyamatosan követik a legújabb technológiai trendeket és fejlesztéseket. Hiszünk abban, hogy az informatika nem csak technológia, hanem szolgáltatás is - ezért minden ügyfelünkkel személyes kapcsolatot alakítunk ki.</p>
+                
+                <p>Küldetésünk, hogy ügyfeleink informatikai problémáit gyorsan, hatékonyan és kedvező áron oldjuk meg, miközben hosszú távú partnerségeket építünk ki velük.</p>
+            </article>
+
+            <div class="values">
+                <div class="value-item">
+                    <h3>🎯 Megbízhatóság</h3>
+                    <p>Minden projektben a maximális minőségre törekszünk és betartjuk ígéreteinket.</p>
+                </div>
+                <div class="value-item">
+                    <h3>⚡ Gyorsaság</h3>
+                    <p>Gyors reagálású, hatékony munkavégzés és azonnali támogatás sürgős esetekben.</p>
+                </div>
+                <div class="value-item">
+                    <h3>🤝 Közvetlen Kapcsolat</h3>
+                    <p>Személyes megközelítés, érthető kommunikáció és rugalmas együttműködés.</p>
+                </div>
+                <div class="value-item">
+                    <h3>💰 Kedvező Árak</h3>
+                    <p>Versenyképes árazás és átlátható költségstruktúra minden szolgáltatásunkban.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 TechNova IT Solutions. Minden jog fenntartva.</p>
+        </footer>
+    </div>
+
+    <!-- SZOLGÁLTATÁSOK OLDAL -->
+    <div class="page" id="services">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="200" height="50" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background rectangle -->
+                        <rect x="0" y="0" width="400" height="100" fill="#142b72" stroke="#e0ca64" stroke-width="4" rx="8"/>
+                        
+                        <!-- TN Letters -->
+                        <g fill="#e0ca64">
+                            <!-- T -->
+                            <rect x="20" y="15" width="40" height="8"/>
+                            <rect x="35" y="15" width="10" height="50"/>
+                        </g>
+                        <g fill="#997ae1">
+                            <!-- N -->
+                            <rect x="75" y="15" width="8" height="50"/>
+                            <rect x="100" y="15" width="8" height="50"/>
+                            <polygon points="83,15 100,45 83,45"/>
+                        </g>
+                        
+                        <!-- TECHNOVA text -->
+                        <text x="140" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">TECHNOVA</text>
+                        <text x="140" y="58" font-family="Arial, sans-serif" font-size="12" fill="#e0ca64" letter-spacing="2px">IT SOLUTIONS</text>
+                        
+                        <!-- Decorative lines -->
+                        <rect x="340" y="15" width="40" height="4" fill="#e0ca64"/>
+                        <rect x="340" y="55" width="40" height="4" fill="#e0ca64"/>
+                    </svg>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')">Főoldal</a></li>
+                        <li><a href="#" onclick="showPage('about')">Rólunk</a></li>
+                        <li><a href="#" onclick="showPage('services')" class="active">Szolgáltatások</a></li>
+                        <li><a href="#" onclick="showPage('contact')">Kapcsolat</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <div class="hero">
+                <h1>Szolgáltatásaink</h1>
+                <p>Teljes körű informatikai megoldások vállalkozásoknak és magánszemélyeknek</p>
+            </div>
+
+            <div class="services-grid">
+                <article class="service-category">
+                    <h3>🖥️ Rendszerüzemeltetés</h3>
+                    <ul class="service-list">
+                        <li>IT infrastruktúra kiépítése és tervezése</li>
+                        <li>Szerver telepítés és konfigurálás</li>
+                        <li>Hálózati rendszerek kiépítése</li>
+                        <li>Rendszeres karbantartás és felügyelet</li>
+                        <li>Biztonsági mentések kezelése</li>
+                        <li>Vírusvédelem és biztonság</li>
+                        <li>Teljesítmény optimalizálás</li>
+                    </ul>
+                </article>
+
+                <article class="service-category">
+                    <h3>🔒 Hálózatbiztonság</h3>
+                    <ul class="service-list">
+                        <li>Tűzfal telepítés és beállítás</li>
+                        <li>Behatolás-érzékelő rendszerek</li>
+                        <li>VPN kapcsolatok kiépítése</li>
+                        <li>Biztonsági audit és értékelés</li>
+                        <li>Adatvédelmi tanácsadás</li>
+                        <li>Incidenskezelés és helyreállítás</li>
+                        <li>Felhasználói képzések</li>
+                    </ul>
+                </article>
+
+                <article class="service-category">
+                    <h3>🌐 Webfejlesztés</h3>
+                    <ul class="service-list">
+                        <li>Egyedi weboldal tervezés és fejlesztés</li>
+                        <li>AI-támogatott személyre szabás</li>
+                        <li>Reszponzív design (mobil-barát)</li>
+                        <li>E-commerce megoldások</li>
+                        <li>Tartalomkezelő rendszerek (CMS)</li>
+                        <li>Weboldal karbantartás és frissítés</li>
+                        <li>SEO optimalizálás</li>
+                    </ul>
+                </article>
+
+                <article class="service-category">
+                    <h3>🛠️ Támogatás</h3>
+                    <ul class="service-list">
+                        <li>0-24 órás ügyfélszolgálat</li>
+                        <li>Helyszíni technikai támogatás</li>
+                        <li>Távoli segítségnyújtás</li>
+                        <li>SOS gyorsszolgálat</li>
+                        <li>Rendszerfelügyelet és monitoring</li>
+                        <li>Felhasználói képzések és oktatás</li>
+                        <li>Preventív karbantartás</li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="emergency-contact">
+                <h3>🆘 Sürgős Esetekben</h3>
+                <div class="phone">+36 XX XXX XXXX</div>
+                <p>0-24 órás SOS szolgáltatás kritikus problémák esetén</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 TechNova IT Solutions. Minden jog fenntartva.</p>
+        </footer>
+    </div>
+
+    <!-- KAPCSOLAT OLDAL -->
+    <div class="page" id="contact">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="200" height="50" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background rectangle -->
+                        <rect x="0" y="0" width="400" height="100" fill="#142b72" stroke="#e0ca64" stroke-width="4" rx="8"/>
+                        
+                        <!-- TN Letters -->
+                        <g fill="#e0ca64">
+                            <!-- T -->
+                            <rect x="20" y="15" width="40" height="8"/>
+                            <rect x="35" y="15" width="10" height="50"/>
+                        </g>
+                        <g fill="#997ae1">
+                            <!-- N -->
+                            <rect x="75" y="15" width="8" height="50"/>
+                            <rect x="100" y="15" width="8" height="50"/>
+                            <polygon points="83,15 100,45 83,45"/>
+                        </g>
+                        
+                        <!-- TECHNOVA text -->
+                        <text x="140" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">TECHNOVA</text>
+                        <text x="140" y="58" font-family="Arial, sans-serif" font-size="12" fill="#e0ca64" letter-spacing="2px">IT SOLUTIONS</text>
+                        
+                        <!-- Decorative lines -->
+                        <rect x="340" y="15" width="40" height="4" fill="#e0ca64"/>
+                        <rect x="340" y="55" width="40" height="4" fill="#e0ca64"/>
+                    </svg>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')">Főoldal</a></li>
+                        <li><a href="#" onclick="showPage('about')">Rólunk</a></li>
+                        <li><a href="#" onclick="showPage('services')">Szolgáltatások</a></li>
+                        <li><a href="#" onclick="showPage('contact')"class="active">Kapcsolat</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <div class="hero">
+                <h1>Kapcsolatfelvétel</h1>
+                <p>Vegye fel velünk a kapcsolatot! Szívesen segítünk informatikai kérdéseiben.</p>
+            </div>
+
+            <div class="emergency-contact">
+                <h3>🆘 SOS Ügyfélszolgálat</h3>
+                <div class="phone">+36 30 123 4567</div>
+                <p>Sürgős esetekben 0-24 órában elérhetők vagyunk</p>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <h2 style="text-align: center; color: #142b72; margin-bottom: 2rem;">Kapcsolatfelvételi Űrlap</h2>
+                
+                <!-- Status Messages -->
+                <div id="statusMessage" class="status-message"></div>
+                
+                <div class="form-group">
+                    <label for="clientType">Ügyfél típusa:</label>
+                    <select id="clientType" name="client_type" required>
+                        <option value="">Válasszon...</option>
+                        <option value="Céges ügyfél">Céges ügyfél</option>
+                        <option value="Magánszemély">Magánszemély</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Név / Cégnév *:</label>
+                    <input type="text" id="name" name="from_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Telefonszám *:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail cím *:</label>
+                    <input type="email" id="email" name="reply_to" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Szolgáltatás típusa:</label>
+                    <select id="service" name="service_type" onchange="toggleOtherServiceField()">
+                        <option value="">Válasszon...</option>
+                        <option value="Rendszerüzemeltetés">Rendszerüzemeltetés</option>
+                        <option value="Webfejlesztés">Webfejlesztés</option>
+                        <option value="Hálózatbiztonság">Hálózatbiztonság</option>
+                        <option value="Technikai támogatás">Technikai támogatás</option>
+                        <option value="other">Egyéb</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="otherServiceGroup" style="display: none;">
+                    <label for="otherService">Milyen szolgáltatást keres? *:</label>
+                    <input type="text" id="otherService" name="other_service" placeholder="Írja le, milyen szolgáltatásra van szüksége...">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Üzenet (opcionális):</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Írja le részletesen kérését, problémáját vagy kérdését..."></textarea>
+                </div>
+
+                <button type="submit" class="cta-button" id="submitBtn" style="width: 100%;">
+                    <span id="submitText">Üzenet Küldése</span>
+                    <span id="loadingText" style="display: none;">Küldés...</span>
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 3rem; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                <h3 style="color: #142b72; margin-bottom: 1rem;">Közvetlen Elérhetőségek</h3>
+                <p style="color: #666; margin-bottom: 0.5rem;">📧 info@technova.hu</p>
+                <p style="color: #666; margin-bottom: 0.5rem;">📞 +36 30 123 4567 (normál ügyintézés)</p>
+                <p style="color: #666;">🏢 Budapest, Magyarország</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 TechNova IT Solutions. Minden jog fenntartva.</p>
+        </footer>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="close-x" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon">
+                    <span id="modalIconContent">✓</span>
+                    <div class="loading-spinner" id="loadingSpinner" style="display: none;"></div>
+                </div>
+                <h3 class="modal-title" id="modalTitle">Sikeres küldés!</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Az üzenet sikeresen elküldve.</p>
+                <div class="modal-details" id="modalDetails" style="display: none;">
+                    <h4>Küldött adatok:</h4>
+                    <div id="modalDetailsContent"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close-btn" onclick="closeModal()" id="modalCloseBtn">Rendben</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // EmailJS inicializálás - IDE KELL A SAJÁT PUBLIC KEY
+        emailjs.init("JSUoigK_4Vq_ywznw"); // Ezt cseréld ki a saját EmailJS public key-re
+        
+        function toggleOtherServiceField() {
+            const serviceSelect = document.getElementById('service');
+            const otherServiceGroup = document.getElementById('otherServiceGroup');
+            const otherServiceInput = document.getElementById('otherService');
+            
+            if (serviceSelect.value === 'other') {
+                otherServiceGroup.style.display = 'block';
+                otherServiceInput.required = true;
+                // Smooth animation
+                otherServiceGroup.style.opacity = '0';
+                otherServiceGroup.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    otherServiceGroup.style.transition = 'all 0.3s ease';
+                    otherServiceGroup.style.opacity = '1';
+                    otherServiceGroup.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                otherServiceGroup.style.display = 'none';
+                otherServiceInput.required = false;
+                otherServiceInput.value = '';
+            }
+        }
+
+        function showStatus(message, type) {
+            const statusElement = document.getElementById('statusMessage');
+            statusElement.textContent = message;
+            statusElement.className = `status-message status-${type}`;
+            statusElement.style.display = 'block';
+            
+            // Auto hide after 5 seconds for success/error
+            if (type !== 'loading') {
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function showModal(title, message, type, details = null) {
+            const modal = document.getElementById('modalOverlay');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalIconContent = document.getElementById('modalIconContent');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalDetails = document.getElementById('modalDetails');
+            const modalDetailsContent = document.getElementById('modalDetailsContent');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            
+            // Set icon and content based on type
+            modalIcon.className = `modal-icon ${type}`;
+            
+            if (type === 'loading') {
+                modalIconContent.style.display = 'none';
+                loadingSpinner.style.display = 'block';
+                modalCloseBtn.style.display = 'none';
+            } else {
+                modalIconContent.style.display = 'block';
+                loadingSpinner.style.display = 'none';
+                modalCloseBtn.style.display = 'inline-block';
+                
+                if (type === 'success') {
+                    modalIconContent.textContent = '✓';
+                } else if (type === 'error') {
+                    modalIconContent.textContent = '✕';
+                }
+            }
+            
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            
+            // Show details if provided
+            if (details) {
+                modalDetailsContent.innerHTML = details;
+                modalDetails.style.display = 'block';
+            } else {
+                modalDetails.style.display = 'none';
+            }
+            
+            // Show modal
+            modal.classList.add('active');
+            
+            // Close on outside click
+            modal.onclick = function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            };
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modalOverlay');
+            modal.classList.remove('active');
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        function setLoadingState(isLoading) {
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const loadingText = document.getElementById('loadingText');
+            
+            submitBtn.disabled = isLoading;
+            submitText.style.display = isLoading ? 'none' : 'inline';
+            loadingText.style.display = isLoading ? 'inline' : 'none';
+        }
+
+        // Form submit handler
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Show loading modal
+            showModal('Küldés folyamatban...', 'Kérjük, várjon, amíg az üzenet elküldésre kerül.', 'loading');
+            
+            // Prepare template parameters
+            const formData = new FormData(this);
+            const templateParams = {
+                from_name: formData.get('from_name'),
+                reply_to: formData.get('reply_to'),
+                phone: formData.get('phone'),
+                client_type: formData.get('client_type'),
+                service_type: formData.get('service_type') === 'other' ? 
+                             `Egyéb: ${formData.get('other_service')}` : 
+                             formData.get('service_type'),
+                message: formData.get('message') || 'Nincs külön üzenet',
+                to_email: 'info@technova.hu' // Itt add meg a céges email címet
+            };
+            
+            // Prepare details for success modal
+            const detailsHTML = `
+                <p><strong>Név:</strong> ${templateParams.from_name}</p>
+                <p><strong>Email:</strong> ${templateParams.reply_to}</p>
+                <p><strong>Telefon:</strong> ${templateParams.phone}</p>
+                <p><strong>Ügyfél típusa:</strong> ${templateParams.client_type}</p>
+                <p><strong>Szolgáltatás:</strong> ${templateParams.service_type}</p>
+                <p><strong>Üzenet:</strong> ${templateParams.message}</p>
+            `;
+            
+            // Send email using EmailJS
+            emailjs.send('service_pu21bw7', 'template_h2gag1d', templateParams)
+                .then(function(response) {
+                    console.log('Email successfully sent!', response.status, response.text);
+                    
+                    // Show success modal with details
+                    showModal(
+                        'Sikeres küldés!', 
+                        'Köszönjük megkeresését! Hamarosan felvesszük Önnel a kapcsolatot. Az üzenet részleteit alább láthatja.',
+                        'success',
+                        detailsHTML
+                    );
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                    document.getElementById('otherServiceGroup').style.display = 'none';
+                    document.getElementById('otherService').required = false;
+                    
+                }, function(error) {
+                    console.error('Email sending failed:', error);
+                    
+                    // Show error modal
+                    showModal(
+                        'Hiba történt!',
+                        'Sajnos hiba történt az üzenet küldése során. Kérjük, próbálja újra később, vagy hívjon minket közvetlenül a +36 30 123 4567 számon.',
+                        'error'
+                    );
+                });
+        });
+
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                targetPage.style.display = 'block';
+            }
+            
+            // Update navigation - remove active from all nav links
+            const allNavLinks = document.querySelectorAll('nav a');
+            allNavLinks.forEach(link => link.classList.remove('active'));
+            
+            // Add active class to current page links
+            const currentPageLinks = document.querySelectorAll(`a[onclick*="'${pageId}'"]`);
+            currentPageLinks.forEach(link => link.classList.add('active'));
+            
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            return false; // Prevent default link behavior
+        }
+
+        (function() {
+    const themeSwitch = document.getElementById('themeSwitch');
+    const themeIcon = document.getElementById('themeIcon');
+    const switchTrack = document.getElementById('switchTrack');
+    const switchButton = document.getElementById('switchButton');
+    
+    function applyTheme(isDark) {
+        console.log('Téma váltás:', isDark ? 'sötét' : 'világos');
+        
+        if (isDark) {
+            // HÁTTÉR
+            document.body.style.setProperty('background-color', '#1a1a1a', 'important');
+            document.body.style.setProperty('background', '#1a1a1a', 'important');
+            document.body.style.setProperty('color', '#e0e0e0', 'important');
+            document.documentElement.style.setProperty('background-color', '#1a1a1a', 'important');
+            document.documentElement.style.setProperty('background', '#1a1a1a', 'important');
+            
+            // MINDEN ELEM SZÖVEGSZÍNÉNEK ÁTÍRÁSA
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(element => {
+                // Kihagyjuk a témaváltó gombot
+                if (element.closest('#themeSwitch') || element.id === 'themeSwitch') return;
+                
+                // Szövegszín átírása
+                element.style.setProperty('color', '#e0e0e0', 'important');
+                
+                // Háttérszín ellenőrzése és átírása
+                const computedStyle = window.getComputedStyle(element);
+                const bgColor = computedStyle.backgroundColor;
+                
+                if (bgColor === 'rgb(255, 255, 255)' || 
+                    bgColor === 'white' || 
+                    bgColor === 'rgba(255, 255, 255, 1)' ||
+                    bgColor.includes('255, 255, 255')) {
+                    element.style.setProperty('background-color', '#2d2d2d', 'important');
+                }
+            });
+            
+            // CSS osztályok
+            document.body.classList.add('dark-mode');
+            document.documentElement.classList.add('dark-mode');
+            
+            // Gomb
+            themeIcon.textContent = '☀️';
+            switchTrack.style.background = '#4CAF50';
+            switchButton.style.transform = 'translateX(26px)';
+            themeSwitch.checked = true;
+            
+        } else {
+            // VILÁGOS TÉMA
+            document.body.style.setProperty('background-color', '#ffffff', 'important');
+            document.body.style.setProperty('background', '#ffffff', 'important');
+            document.body.style.setProperty('color', '#333333', 'important');
+            document.documentElement.style.setProperty('background-color', '#ffffff', 'important');
+            document.documentElement.style.setProperty('background', '#ffffff', 'important');
+            
+            // MINDEN ELEM VISSZAÁLLÍTÁSA
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(element => {
+                // Kihagyjuk a témaváltó gombot
+                if (element.closest('#themeSwitch') || element.id === 'themeSwitch') return;
+                
+                // Szövegszín visszaállítása
+                element.style.removeProperty('color');
+                element.style.removeProperty('background-color');
+            });
+            
+            // CSS osztályok eltávolítása
+            document.body.classList.remove('dark-mode');
+            document.documentElement.classList.remove('dark-mode');
+            
+            // Gomb
+            themeIcon.textContent = '🌙';
+            switchTrack.style.background = '#ccc';
+            switchButton.style.transform = 'translateX(0px)';
+            themeSwitch.checked = false;
+        }
+        
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+    
+    themeSwitch.addEventListener('change', function() {
+        applyTheme(this.checked);
+    });
+    
+    const savedTheme = localStorage.getItem('theme');
+    const isDark = savedTheme === 'dark';
+    applyTheme(isDark);
+})();
+    </script>
+
+</body>
+</html>
