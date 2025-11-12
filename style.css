@@ -75,7 +75,7 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #142b72 0%, #1a3a8a 100%);
+            background: linear-gradient(90deg,rgba(1, 31, 107, 1) 0%, rgba(255, 183, 0, 1) 50%, rgba(105, 68, 223, 1) 100%);
             color: white;
             padding: 1rem 0;
             box-shadow: 0 4px 15px rgba(20, 43, 114, 0.3);
@@ -1167,3 +1167,4 @@ a, button, input, textarea, select {
 .dark-mode .service-category h3 {
     border-bottom-color: #b8a7e8 !important; /* Világos lila border */
 }
+
