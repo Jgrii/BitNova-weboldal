@@ -122,8 +122,8 @@
         }
 
         nav a:hover, nav a.active {
-            background: rgba(224, 202, 100, 0.2);
-            color: #6944df;
+            background: rgba(104, 68, 223, 0.2);
+            color: #e0ca64;
             transform: translateY(-2px);
         }
 
@@ -1167,6 +1167,7 @@ a, button, input, textarea, select {
 .dark-mode .service-category h3 {
     border-bottom-color: #b8a7e8 !important; /* Világos lila border */
 }
+
 
 
 
