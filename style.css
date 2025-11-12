@@ -573,7 +573,7 @@
 
         /* Footer */
         footer {
-            background: #142b72;
+            background: linear-gradient(45deg, #997ae1, #e0ca64);
             color: white;
             text-align: center;
             padding: 2rem;
@@ -1167,6 +1167,7 @@ a, button, input, textarea, select {
 .dark-mode .service-category h3 {
     border-bottom-color: #b8a7e8 !important; /* Világos lila border */
 }
+
 
 
 
