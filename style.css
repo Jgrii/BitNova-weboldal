@@ -129,7 +129,7 @@
 
         /* Main Content */
         main {
-            max-width: 1200px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -1167,6 +1167,7 @@ a, button, input, textarea, select {
 .dark-mode .service-category h3 {
     border-bottom-color: #b8a7e8 !important; /* Világos lila border */
 }
+
 
 
 
