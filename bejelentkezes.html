@@ -420,6 +420,12 @@
                 
                 // Bejelentkezés Firebase-zel
                 const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                // Ha be van pipálva az "Emlékezzen rám", mentsd el az email címet
+                if (remember) {
+                    localStorage.setItem('rememberedEmail', email);
+                } else {
+                    localStorage.removeItem('rememberedEmail');
+                }
                 const user = userCredential.user;
                 
                 showSuccess('Sikeres bejelentkezés! Átirányítás...');
@@ -556,6 +562,15 @@
           .catch((error) => {
             // Hibakezelés
           });
+
+        // Oldal betöltésekor ellenőrizd, van-e mentett email
+        window.addEventListener('DOMContentLoaded', function() {
+            const rememberedEmail = localStorage.getItem('rememberedEmail');
+            if (rememberedEmail) {
+                document.getElementById('email').value = rememberedEmail;
+                document.getElementById('remember').checked = true;
+            }
+        });
     </script>
 </body>
 </html>
