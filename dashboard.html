@@ -1148,10 +1148,11 @@ async function deleteTicket(ticketId) {
     if (!confirm('Biztosan törölni szeretné ezt a támogatási jegyet?')) {
         return;
     }
+
+    const deleteBtn = event?.target;
     
     try {
         // Loading állapot (ha van gomb)
-        const deleteBtn = event?.target;
         if (deleteBtn) {
             deleteBtn.textContent = 'Törlés...';
             deleteBtn.disabled = true;
