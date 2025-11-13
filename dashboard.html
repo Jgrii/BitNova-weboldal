@@ -491,7 +491,7 @@
             
             if (user) {
                 console.log('✅ Sikeres authentikáció:', user.email);
-                document.getElementById('userName').textContent = user.companyName;
+                document.getElementById('userName').textContent = user.email;
                 document.getElementById('profileEmail').value = user.email;
                 
                 await initializeUserData(user.uid, user.email);
