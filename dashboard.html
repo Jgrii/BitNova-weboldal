@@ -1182,6 +1182,7 @@ async function deleteTicket(ticketId) {
         console.error('Jegy törlési hiba:', error);
         showNotification('Hiba a jegy törlése során!', 'error');
     } finally {
+        console.log("FINALLY lefutott");
         // Loading állapot visszaállítása
         if (deleteBtn) {
             deleteBtn.textContent = 'Törlés';
