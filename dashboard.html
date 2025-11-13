@@ -701,7 +701,7 @@
                     const data = doc.data();
                     console.log('👤 Felhasználói adatok:', data);
 
-                    document.getElementById('companyName').textcontent = data.companyName || document.getElementById('companyName').textcontent = data.email;
+                    document.getElementById('userName').textcontent = data.companyName || document.getElementById('companyName').textcontent = data.email;
                     document.getElementById('companyName').value = data.companyName || '';
                     document.getElementById('phone').value = data.phone || '';
                     document.getElementById('address').value = data.address || '';
