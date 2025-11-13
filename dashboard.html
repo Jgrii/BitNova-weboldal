@@ -15,7 +15,7 @@
                 BitNova Dashboard
             </div>
             <div class="user-info">
-                <span id="userEmail">Betöltés...</span>
+                <span id="userName">Betöltés...</span>
                 <button class="logout-btn" onclick="logout()">
                     <i class="fas fa-sign-out-alt"></i> Kilépés
                 </button>
@@ -491,7 +491,7 @@
             
             if (user) {
                 console.log('✅ Sikeres authentikáció:', user.email);
-                document.getElementById('userEmail').textContent = user.email;
+                document.getElementById('userName').textContent = user.companyName;
                 document.getElementById('profileEmail').value = user.email;
                 
                 await initializeUserData(user.uid, user.email);
