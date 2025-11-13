@@ -583,7 +583,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 1rem;
             }
 
@@ -1167,6 +1167,7 @@ a, button, input, textarea, select {
 .dark-mode .service-category h3 {
     border-bottom-color: #b8a7e8 !important; /* Világos lila border */
 }
+
 
 
 
