@@ -599,6 +599,13 @@
             main {
                 padding: 1rem;
             }
+
+           .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
         }
 
         /* Hamburger menü alapértelmezett elrejtése */
@@ -1168,6 +1175,7 @@ a, button, input, textarea, select {
 .dark-mode .service-category h3 {
     border-bottom-color: #b8a7e8 !important; /* Világos lila border */
 }
+
 
 
 
