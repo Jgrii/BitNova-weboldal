@@ -585,6 +585,7 @@
             .header-content {
                 flex-direction: row;
                 gap: 1rem;
+                justify-content: space-between;
                 padding: 0 40px;
             }
 
@@ -1175,6 +1176,7 @@ a, button, input, textarea, select {
 .dark-mode .service-category h3 {
     border-bottom-color: #b8a7e8 !important; /* Világos lila border */
 }
+
 
 
 
