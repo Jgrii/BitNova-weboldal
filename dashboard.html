@@ -1142,54 +1142,6 @@ function showNotification(message, type = 'info') {
         document.getElementById('viewTicketModal').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
-
-async function deleteTicket(ticketId) {
-    // Megerősítés kérése
-    if (!confirm('Biztosan törölni szeretné ezt a támogatási jegyet?')) {
-        return;
-    }
-
-    const deleteBtn = event?.target;
-    
-    try {
-        // Loading állapot (ha van gomb)
-        if (deleteBtn) {
-            deleteBtn.textContent = 'Törlés...';
-            deleteBtn.disabled = true;
-        }
-        
-        // Jegy törlése Firestore-ból
-        await db.collection('tickets').doc(ticketId).delete();
-        console.log('✅ Jegy törölve:', ticketId);
-        
-        // Aktivitás naplózása
-        const user = auth.currentUser;
-        if (user) {
-            await db.collection('activities').add({
-                userId: user.uid,
-                description: 'Támogatási jegy törölve',
-                type: 'ticket',
-                status: 'Törölve',
-                date: firebase.firestore.Timestamp.now()
-                //date: firebase.firestore.FieldValue.serverTimestamp()
-            });
-        }
-        
-        // Siker üzenet
-        showNotification('Támogatási jegy sikeresen törölve!', 'success');
-        
-    } catch (error) {
-        console.error('Jegy törlési hiba:', error);
-        showNotification('Hiba a jegy törlése során!', 'error');
-    } finally {
-        console.log("FINALLY lefutott");
-        // Loading állapot visszaállítása
-        if (deleteBtn) {
-            deleteBtn.textContent = 'Törlés';
-            deleteBtn.disabled = false;
-        }
-    }
-}
         
 // Valós idejű adatfrissítés beállítása
 function setupRealTimeListeners(userId) {
@@ -1405,6 +1357,11 @@ document.getElementById('newTicketForm').addEventListener('submit', async (e) =>
             const confirmBtn = document.getElementById('confirmDeleteBtn');
             confirmBtn.innerHTML = '<i class="fas fa-trash"></i> Igen, törlöm';
             confirmBtn.disabled = false;
+        }
+        finally {
+        // Gomb VISSZAÁLLÍTÁSA – minden esetben lefut!
+        confirmBtn.innerHTML = 'Igen, törlöm';
+        confirmBtn.disabled = false;
         }
     }
     
