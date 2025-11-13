@@ -1319,10 +1319,9 @@ document.getElementById('newTicketForm').addEventListener('submit', async (e) =>
     // Törlés megerősítése
     async function confirmDelete() {
         if (!ticketToDelete) return;
-        
+        const confirmBtn = document.getElementById('confirmDeleteBtn');
         try {
             // Loading állapot
-            const confirmBtn = document.getElementById('confirmDeleteBtn');
             const originalText = confirmBtn.innerHTML;
             confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Törlés...';
             confirmBtn.disabled = true;
@@ -1354,12 +1353,13 @@ document.getElementById('newTicketForm').addEventListener('submit', async (e) =>
             showNotification('Hiba a jegy törlése során!', 'error');
             
             // Gomb visszaállítása hiba esetén
-            const confirmBtn = document.getElementById('confirmDeleteBtn');
             confirmBtn.innerHTML = '<i class="fas fa-trash"></i> Igen, törlöm';
             confirmBtn.disabled = false;
         }
         finally {
         // Gomb VISSZAÁLLÍTÁSA – minden esetben lefut!
+        console.error('Sikeres törlés, visszaállt a gomb');
+        const confirmBtn = document.getElementById('confirmDeleteBtn');
         confirmBtn.innerHTML = 'Igen, törlöm';
         confirmBtn.disabled = false;
         }
