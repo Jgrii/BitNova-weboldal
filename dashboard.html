@@ -538,7 +538,7 @@
                             smsNotifications: false
                         }
                     };
-                    await document.getElementById('userName').textContent = user.companyName;
+                    document.getElementById('userName').textContent = user.companyName;
                     
                     await userRef.set(defaultUserData);
                     console.log('✅ Új felhasználó dokumentum létrehozva');
