@@ -538,7 +538,6 @@
                             smsNotifications: false
                         }
                     };
-                    document.getElementById('userName').textContent = user.companyName;
                     
                     await userRef.set(defaultUserData);
                     console.log('✅ Új felhasználó dokumentum létrehozva');
@@ -701,7 +700,8 @@
                 if (doc.exists) {
                     const data = doc.data();
                     console.log('👤 Felhasználói adatok:', data);
-                    
+
+                    document.getElementById('companyName').textcontent = data.companyName || document.getElementById('companyName').textcontent = data.email;
                     document.getElementById('companyName').value = data.companyName || '';
                     document.getElementById('phone').value = data.phone || '';
                     document.getElementById('address').value = data.address || '';
