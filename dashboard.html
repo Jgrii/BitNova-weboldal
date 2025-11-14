@@ -487,11 +487,22 @@
             });
 
         let activitiesUnsubscribe = null;
+        let realtimeUnsubscribe = null;
 
         auth.onAuthStateChanged(async (user) => {
             console.log('Auth state changed:', user);
+                
+                if (activitiesUnsubscribe) {
+                activitiesUnsubscribe();
+                activitiesUnsubscribe = null;
+                }
+
+                if (realtimeUnsubscribe) {
+                realtimeUnsubscribe();
+                realtimeUnsubscribe = null;
+                }   
             
-            if (user) {
+            if (user) {                
                 console.log('✅ Sikeres authentikáció:', user.email);
                 document.getElementById('profileEmail').value = user.email;
                 
@@ -499,13 +510,11 @@
                 await loadUserData(user.uid);
 
                 // REALTIME csak egyszer induljon el
-                if (!activitiesUnsubscribe) {
                 activitiesUnsubscribe = loadActivities(user.uid);
-                }
-
-                setupRealTimeListeners(user.uid);
+                realtimeUnsubscribe = setupRealTimeListeners(user.uid);
                 
-            } else {
+                } 
+            else {
                 console.log('❌ Nincs bejelentkezett felhasználó');
                 setTimeout(() => {
                     window.location.href = 'bejelentkezes.html';
