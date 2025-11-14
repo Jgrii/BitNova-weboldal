@@ -686,7 +686,7 @@
                 await loadInvoices(userId);
                 await loadServices(userId);
                 await loadTickets(userId);
-                //await loadActivities(userId);
+                loadActivities(userId);
                 
             } catch (error) {
                 console.error('Adatbetöltési hiba:', error);
