@@ -686,7 +686,7 @@
                 await loadInvoices(userId);
                 await loadServices(userId);
                 await loadTickets(userId);
-                await loadActivities(userId);
+                //await loadActivities(userId);
                 
             } catch (error) {
                 console.error('Adatbetöltési hiba:', error);
@@ -898,7 +898,7 @@ async function loadTickets(userId) {
     }
 }
 
-function loadActivites(userId) {
+    function loadActivities(userId) {
     return db.collection('activities')
         .where('userId', '==', userId)
         .orderBy('date', 'desc')
