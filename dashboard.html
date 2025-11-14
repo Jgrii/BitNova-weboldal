@@ -486,6 +486,8 @@
                 console.error('Auth persistence hiba:', error);
             });
 
+        let activitiesUnsubscribe = null;
+
         auth.onAuthStateChanged(async (user) => {
             console.log('Auth state changed:', user);
             
@@ -495,6 +497,11 @@
                 
                 await initializeUserData(user.uid, user.email);
                 await loadUserData(user.uid);
+
+                // REALTIME csak egyszer induljon el
+                if (!activitiesUnsubscribe) {
+                activitiesUnsubscribe = loadActivities(user.uid);
+                }
 
                 setupRealTimeListeners(user.uid);
                 
@@ -686,7 +693,7 @@
                 await loadInvoices(userId);
                 await loadServices(userId);
                 await loadTickets(userId);
-                loadActivities(userId);
+                //loadActivities(userId);
                 
             } catch (error) {
                 console.error('Adatbetöltési hiba:', error);
