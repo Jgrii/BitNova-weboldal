@@ -1177,11 +1177,11 @@ function setupRealTimeListeners(userId) {
         });
     
     // Tevékenységek valós idejű figyelése
-    /db.collection('activities').where('userId', '==', userId)
-        .onSnapshot((snapshot) => {
-            console.log('📋 Tevékenységek frissítve valós időben');
-            loadActivities(userId);
-        /});
+    //db.collection('activities').where('userId', '==', userId)
+        //.onSnapshot((snapshot) => {
+         //   console.log('📋 Tevékenységek frissítve valós időben');
+         //   loadActivities(userId);
+        //});
 }
 
 // Új jegy modal megnyitása
