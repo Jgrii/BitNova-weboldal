@@ -898,32 +898,39 @@ async function loadTickets(userId) {
     }
 }
 
-async function loadActivities(userId) {
-    try {
-        const snapshot = await db.collection('activities').where('userId', '==', userId).orderBy('date', 'desc').limit(10).get();
-        const tableBody = document.getElementById('activitiesTable');
-        tableBody.innerHTML = '';
-        
-        snapshot.forEach(doc => {
-            const activity = doc.data();
-            const row = document.createElement('tr');
-            
-            const statusClass = activity.status === 'Kész' ? 'paid' : 
-                               activity.status === 'Függőben' ? 'pending' : 'pending';
-            
-            row.innerHTML = `
-                <td>${activity.date?.seconds ? new Date(activity.date.seconds * 1000).toLocaleDateString('hu-HU') : '-'}</td>
-                <td>${activity.description}</td>
-                <td><span class="status ${statusClass}">${activity.status}</span></td>
-            `;
-            tableBody.appendChild(row);
+function loadActivites(userId) {
+    return db.collection('activities')
+        .where('userId', '==', userId)
+        .orderBy('date', 'desc')
+        .limit(10)
+        .onSnapshot(snapshot => {
+
+            const tableBody = document.getElementById('activitiesTable');
+            tableBody.innerHTML = '';
+
+            snapshot.forEach(doc => {
+                const activity = doc.data();
+                const row = document.createElement('tr');
+
+                const statusClass = activity.status === 'Kész'
+                    ? 'paid'
+                    : activity.status === 'Függőben'
+                        ? 'pending'
+                        : 'pending';
+
+                row.innerHTML = `
+                    <td>${activity.date?.seconds ? new Date(activity.date.seconds * 1000).toLocaleDateString('hu-HU') : '-'}</td>
+                    <td>${activity.description}</td>
+                    <td><span class="status ${statusClass}">${activity.status}</span></td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+
+            console.log("🔄 Tevékenységek frissítve realtime-ban:", snapshot.size);
         });
-        
-        console.log('📋 Tevékenységek betöltve:', snapshot.size);
-    } catch (error) {
-        console.error('Tevékenységek betöltési hiba:', error);
-    }
 }
+
 
 // Navigáció kezelése
 function showSection(sectionId) {
@@ -1170,11 +1177,11 @@ function setupRealTimeListeners(userId) {
         });
     
     // Tevékenységek valós idejű figyelése
-    db.collection('activities').where('userId', '==', userId)
+    /db.collection('activities').where('userId', '==', userId)
         .onSnapshot((snapshot) => {
             console.log('📋 Tevékenységek frissítve valós időben');
             loadActivities(userId);
-        });
+        /});
 }
 
 // Új jegy modal megnyitása
